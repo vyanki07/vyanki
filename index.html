@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignalFlow | Traffic Operations Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark"><span></span><span></span><span></span></div>
+          <div><strong>signal<span>flow</span></strong><small>TRAFFIC OPERATIONS</small></div>
+        </div>
+        <nav class="nav">
+          <p class="nav-label">Workspace</p>
+          <a class="nav-item active" href="#"><span class="nav-icon">▦</span>Overview</a>
+          <a class="nav-item" href="#intersections"><span class="nav-icon">⌖</span>Intersections <b>24</b></a>
+          <a class="nav-item" href="#alerts"><span class="nav-icon">◉</span>Alerts <b class="alert-count">3</b></a>
+          <a class="nav-item" href="#analytics"><span class="nav-icon">⌁</span>Analytics</a>
+          <p class="nav-label">Manage</p>
+          <a class="nav-item" href="#"><span class="nav-icon">◌</span>Signal plans</a>
+          <a class="nav-item" href="#"><span class="nav-icon">⚙</span>Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-avatar">AK</div>
+          <div><strong>Alex Kim</strong><small>Operations manager</small></div>
+          <span class="more">•••</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="mobile-brand"><div class="brand-mark"><span></span><span></span><span></span></div>signal<span>flow</span></div>
+          <div class="breadcrumb"><span>Operations</span><i>/</i><strong>Overview</strong></div>
+          <div class="top-actions">
+            <div class="system-status"><span></span>All systems operational</div>
+            <button class="icon-btn" aria-label="Notifications">♢<em>3</em></button>
+            <button class="avatar avatar-small">AK</button>
+          </div>
+        </header>
+
+        <div class="content">
+          <section class="welcome-row">
+            <div><p class="eyebrow">FRIDAY, OCTOBER 03, 2026 <span class="live-dot"></span> LIVE</p><h1>Good morning, Alex <span>✦</span></h1><p class="subtitle">Here's what's happening across your traffic network today.</p></div>
+            <button class="date-button">▣ &nbsp; Today, Oct 03 <span>⌄</span></button>
+          </section>
+
+          <section class="stats-grid">
+            <article class="stat-card"><div class="stat-head"><span>Active intersections</span><span class="stat-icon green">⌖</span></div><div class="stat-value">24 <small>/ 24</small></div><div class="stat-foot positive">↗ <b>100%</b> operational</div></article>
+            <article class="stat-card"><div class="stat-head"><span>Average wait time</span><span class="stat-icon blue">◷</span></div><div class="stat-value">42<span class="unit"> sec</span></div><div class="stat-foot positive">↓ <b>8.4%</b> vs yesterday</div></article>
+            <article class="stat-card"><div class="stat-head"><span>Vehicles today</span><span class="stat-icon purple">⌁</span></div><div class="stat-value">18,492</div><div class="stat-foot positive">↑ <b>12.6%</b> vs yesterday</div></article>
+            <article class="stat-card"><div class="stat-head"><span>Active alerts</span><span class="stat-icon orange">!</span></div><div class="stat-value">03</div><div class="stat-foot warning">● <b>2 medium</b> · 1 low priority</div></article>
+          </section>
+
+          <section class="emergency-panel panel">
+            <div class="panel-header"><div><h2>Emergency response</h2><p>Ambulance priority corridor</p></div><span class="emergency-live">● PRIORITY READY</span></div>
+            <div class="emergency-content">
+              <div class="ambulance-card"><div class="ambulance-icon">✚</div><div><strong>Ambulance A-104</strong><p>Cardiac emergency · Live GPS</p></div><span class="gps-pulse"></span></div>
+              <div class="emergency-metrics"><div><span>ETA to hospital</span><strong id="ambulance-eta">06:42</strong></div><div><span>Current speed</span><strong>54 <small>km/h</small></strong></div><div><span>Next junction</span><strong>Market & 5th</strong></div></div>
+              <div class="route-progress"><div class="route-line"><span class="route-current"></span></div><div class="route-labels"><span>Ambulance A-104<br><b>Riverside & 8th</b></span><span class="route-destination">City General Hospital<br><b>3.8 km remaining</b></span></div></div>
+              <div class="emergency-actions"><button class="primary-btn" id="priority-btn">Activate green wave</button><button class="outline-btn" id="dispatch-btn">＋ Dispatch ambulance</button></div>
+            </div>
+          </section>
+          <section class="priority-suggestion panel" id="priority-suggestion" hidden>
+            <div class="suggestion-icon">!</div>
+            <div class="suggestion-copy"><strong>Ambulance within 3 km of Riverside Ave & 8th St</strong><p>Ambulance A-104 is <b id="nearby-distance">2.4 km</b> away. Consider giving this direction a green phase.</p></div>
+            <button class="suggestion-btn" id="suggest-green-btn">Suggest green phase</button>
+            <button class="suggestion-dismiss" id="dismiss-suggestion" aria-label="Dismiss suggestion">×</button>
+          </section>
+
+          <section class="panel signal-controls-panel" id="signal-controls">
+            <div class="panel-header">
+              <div><h2>Signal controls</h2><p>Review and manage intersection phases</p></div>
+              <span class="control-mode"><i></i> Remote control ready</span>
+            </div>
+            <div class="control-list">
+              <div class="control-row" data-signal="Riverside Ave & 8th St">
+                <div class="control-status operational"></div>
+                <div class="control-name"><strong>Riverside Ave & 8th St</strong><p>North / South <span>•</span> Green · 18 sec</p></div>
+                <span class="controller-health"><i></i> Healthy</span>
+                <button class="control-action green-wave">Green wave</button>
+                <button class="control-action normal-cycle">Normal cycle</button>
+              </div>
+              <div class="control-row" data-signal="Market St & 5th Ave">
+                <div class="control-status operational"></div>
+                <div class="control-name"><strong>Market St & 5th Ave</strong><p>East / West <span>•</span> Red · 12 sec</p></div>
+                <span class="controller-health"><i></i> Healthy</span>
+                <button class="control-action hold-phase">Hold phase</button>
+                <button class="control-action normal-cycle">Normal cycle</button>
+              </div>
+              <div class="control-row" data-signal="7th St & Main Ave">
+                <div class="control-status critical"></div>
+                <div class="control-name"><strong>7th St & Main Ave</strong><p>Controller fault <span>•</span> Manual review required</p></div>
+                <span class="controller-health unhealthy"><i></i> Check controller</span>
+                <button class="control-action acknowledge-fault">Acknowledge</button>
+                <button class="control-action normal-cycle">Safe cycle</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="dashboard-grid">
+            <article class="panel map-panel" id="intersections">
+              <div class="panel-header"><div><h2>Network overview</h2><p>Live intersection status</p></div><button class="outline-btn">View full map <span>↗</span></button></div>
+              <div class="map-area">
+                <div class="map-lines"><div class="road road-a"></div><div class="road road-b"></div><div class="road road-c"></div><div class="road road-d"></div><div class="road road-e"></div><div class="road road-f"></div></div>
+                <div class="map-label label-a">Riverside Ave</div><div class="map-label label-b">Market Street</div><div class="map-label label-c">8th Avenue</div>
+                <button class="pin pin-green p1" title="Riverside & 8th">●<span>Riverside & 8th</span></button>
+                <button class="pin pin-green p2" title="Market & 5th">●<span>Market & 5th</span></button>
+                <button class="pin pin-orange p3" title="Central & Pine">●<span>Central & Pine</span></button>
+                <button class="pin pin-green p4" title="Oak & 3rd">●<span>Oak & 3rd</span></button>
+                <button class="pin pin-red p5" title="7th & Main">●<span>7th & Main</span></button>
+                <button class="pin pin-green p6" title="Hill & 12th">●<span>Hill & 12th</span></button>
+                <div class="map-legend"><span><i class="green-dot"></i>Operational</span><span><i class="orange-dot"></i>Attention</span><span><i class="red-dot"></i>Critical</span></div>
+              </div>
+            </article>
+
+            <article class="panel signal-panel">
+              <div class="panel-header"><div><h2>Signal cycle</h2><p>Riverside Ave & 8th St</p></div><span class="live-pill">● LIVE</span></div>
+              <div class="intersection-select">Riverside Ave & 8th St <span>⌄</span></div>
+              <div class="signal-visual"><div class="traffic-light"><span class="light red"></span><span class="light amber"></span><span class="light active-green"></span></div><div class="cycle-time"><strong>18<span>s</span></strong><small>remaining</small></div></div>
+              <div class="cycle-bar"><div class="cycle-fill"></div></div><div class="cycle-labels"><span>Current cycle</span><b>72 sec</b></div>
+              <div class="phase-list"><div><span class="phase-color green-bg"></span><span>North / South</span><strong>18s</strong></div><div><span class="phase-color amber-bg"></span><span>East / West</span><strong>34s</strong></div><div><span class="phase-color red-bg"></span><span>Pedestrian</span><strong>20s</strong></div></div>
+            </article>
+          </section>
+
+          <section class="bottom-grid" id="analytics">
+            <article class="panel chart-panel"><div class="panel-header"><div><h2>Traffic volume</h2><p>Vehicles passing through · Today</p></div><button class="period-btn">Last 24 hours ⌄</button></div><div class="chart"><div class="y-labels"><span>2k</span><span>1.5k</span><span>1k</span><span>500</span><span>0</span></div><div class="chart-body"><div class="grid-line one"></div><div class="grid-line two"></div><div class="grid-line three"></div><div class="grid-line four"></div><svg viewBox="0 0 800 190" preserveAspectRatio="none" aria-label="Traffic volume graph"><defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#7068ec" stop-opacity=".23"/><stop offset="100%" stop-color="#7068ec" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0 157 C45 151 60 131 95 140 S145 115 175 130 S230 112 260 117 S310 70 345 103 S400 77 430 86 S465 57 505 70 S555 53 580 67 S625 35 660 52 S730 25 800 38 L800 190 L0 190Z"/><path class="line" d="M0 157 C45 151 60 131 95 140 S145 115 175 130 S230 112 260 117 S310 70 345 103 S400 77 430 86 S465 57 505 70 S555 53 580 67 S625 35 660 52 S730 25 800 38"/></svg><div class="x-labels"><span>12 AM</span><span>4 AM</span><span>8 AM</span><span>12 PM</span><span>4 PM</span><span>8 PM</span><span>Now</span></div></div></div></article>
+            <article class="panel alerts-panel" id="alerts"><div class="panel-header"><div><h2>Recent alerts</h2><p>Needs your attention</p></div><a href="#">View all</a></div><div class="alert-list"><div class="alert-row"><span class="alert-symbol critical">!</span><div><strong>Signal malfunction</strong><p>7th St & Main Ave · 4 min ago</p></div><span class="severity critical-text">Critical</span></div><div class="alert-row"><span class="alert-symbol medium">↕</span><div><strong>Heavy congestion</strong><p>Central Blvd & Pine St · 18 min ago</p></div><span class="severity medium-text">Medium</span></div><div class="alert-row"><span class="alert-symbol low">i</span><div><strong>Maintenance due</strong><p>Oak St & 3rd Ave · 42 min ago</p></div><span class="severity low-text">Low</span></div></div></article>
+          </section>
+          <footer><span>Last data refresh: <b>just now</b></span><span>SignalFlow Operations v2.4</span></footer>
+        </div>
+      </main>
+    </div>
+    <div class="toast" role="status" aria-live="polite"></div>
+    <div class="modal-backdrop" hidden>
+      <div class="details-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" aria-label="Close">×</button>
+        <p class="eyebrow">INTERSECTION DETAILS</p>
+        <h2 id="modal-title">Riverside Ave & 8th St</h2>
+        <div class="details-grid">
+          <div><span>Status</span><strong class="modal-status">Operational</strong></div>
+          <div><span>Current phase</span><strong>North / South</strong></div>
+          <div><span>Average wait</span><strong>42 sec</strong></div>
+          <div><span>Vehicles today</span><strong>1,248</strong></div>
+        </div>
+        <button class="primary-btn modal-close">Done</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
